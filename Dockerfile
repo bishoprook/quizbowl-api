@@ -3,11 +3,10 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY yarn.lock ./
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 3000
 EXPOSE 8080
 EXPOSE 8081
 
