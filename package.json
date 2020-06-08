@@ -1,0 +1,23 @@
+{
+  "name": "quizbowl",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.1.0",
+    "express": "^4.17.1",
+    "redux": "^4.0.5",
+    "ws": "^7.3.0"
+  },
+  "scripts": {
+    "start": "node src/api.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "@types/express": "^4.17.6",
+    "@types/jest": "^25.2.3",
+    "@types/ws": "^7.2.5",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1"
+  }
+}
