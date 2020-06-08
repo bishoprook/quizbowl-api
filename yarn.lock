@@ -1149,6 +1149,11 @@
   resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/@types/node/-/node-14.0.11.tgz#61d4886e2424da73b7b25547f59fdcb534c165a3"
   integrity sha1-YdSIbiQk2nO3slVH9Z/ctTTBZaM=
 
+"@types/node@^14.0.12":
+  version "14.0.12"
+  resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/@types/node/-/node-14.0.12.tgz#9c1d8ffb8084e8936603a6122a7649e40e68e04b"
+  integrity sha1-nB2P+4CE6JNmA6YSKnZJ5A5o4Es=
+
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
   resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"

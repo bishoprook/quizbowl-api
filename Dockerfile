@@ -7,7 +7,7 @@ RUN yarn install --frozen-lockfile
 
 COPY . .
 
-EXPOSE 8080
-EXPOSE 8081
+ENV PORT 80
+EXPOSE ${PORT}
 
 CMD [ "yarn", "start" ]

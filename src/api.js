@@ -7,7 +7,10 @@ import checkPasscode from './middleware/checkPasscode.js';
 import rest from './rest.js';
 import realtime from './realtime.js';
 
+import process from 'process';
+const { PORT } = process.env;
+
 const store = redux.createStore(lobbyReducer, {}, redux.applyMiddleware(checkRoomId, checkPasscode));
 
-rest({ store });
-realtime({ store });
+const server = rest({ port: PORT, store });
+realtime({ server, store });

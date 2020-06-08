@@ -33,9 +33,11 @@ const rest = ({ store, host = '0.0.0.0', port = '8080' }) => {
             next(err);
         }
     });
-    api.listen(port, host);
+    const server = api.listen(port, host);
 
     console.log(`REST API listening on http://${host}:${port}`);
+
+    return server;
 }
 
 export default rest;
