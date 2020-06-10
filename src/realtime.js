@@ -16,7 +16,13 @@ const realtime = ({ server, store }) => {
         socket.on('message', payload => {
             const action = JSON.parse(payload);
             console.log('Got action: ', action);
-            store.dispatch(action);
+            try {
+                store.dispatch(action);
+            }
+            catch (err) {
+                // Send the error to the offending client?
+                console.error(err);
+            }
         });
         // Send initial state
         const state = store.getState();
