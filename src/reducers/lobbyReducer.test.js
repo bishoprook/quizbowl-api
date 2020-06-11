@@ -1,5 +1,6 @@
 import reducer from './lobbyReducer.js';
 import * as actions from '../actions/actions.js';
+import redact from '../util/redact.js';
 
 test('create adds a new empty room', () => {
     const action = actions.create('IXVY', 'password');
@@ -12,7 +13,7 @@ test('create adds a new empty room', () => {
             scores: {},
             questions: [],
             showing: null,
-            lastAction: action
+            lastAction: redact(action)
         }
     });
 });
@@ -79,6 +80,6 @@ test('lastAction is specific to a given room', () => {
     const action = actions.addPlayer('BOBA', 'celestine');
     const reduced = reducer(state, action);
 
-    expect(reduced.BOBA.lastAction).toStrictEqual(action);
+    expect(reduced.BOBA.lastAction).toStrictEqual(redact(action));
     expect(reduced.FETT.lastAction).toBeNull();
 });

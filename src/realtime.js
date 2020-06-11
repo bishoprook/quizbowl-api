@@ -1,14 +1,12 @@
-import http from 'http';
 import ws from 'ws';
 
 import mapValues from './util/mapValues.js';
 import filterValues from './util/filterValues.js';
+import redact from './util/redact.js';
 
 const realtime = ({ server, store }) => {
     // Realtime API
     const wss = new ws.Server({ server: server });
-
-    const redact = room => filterValues(room, (v, key) => !['passcode'].includes(key));
 
     wss.on('connection', (socket, req) => {
         socket.room = req.url.slice(1);

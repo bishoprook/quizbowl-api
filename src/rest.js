@@ -1,13 +1,10 @@
 import express from 'express';
-import filterValues from './util/filterValues.js';
-
+import redact from './util/redact.js';
 import ApiError from './errors/ApiError.js';
 
 const rest = ({ store, host = '0.0.0.0', port = '8080' }) => {
     const api = express();
     api.use(express.json());
-
-    const redact = room => filterValues(room, (v, key) => !['passcode'].includes(key));
 
     // Don't need CORS setup because the client is always using the realtime API via WS
 

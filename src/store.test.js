@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import lobbyReducer from './reducers/lobbyReducer.js';
 
 import * as actions from './actions/actions.js';
+import redact from './util/redact.js';
 
 test('starts with empty state', () => {
     const store = createStore(lobbyReducer);
@@ -11,7 +12,7 @@ test('starts with empty state', () => {
 test('action sequence', () => {
     const store = createStore(lobbyReducer);
 
-    [
+    const actionSequence = [
         actions.create('BOBA', 'pass'),
         actions.addQuestion('BOBA', 'pass', 'what rolls down stairs'),
         actions.showQuestion('BOBA', 'pass', 1),
@@ -23,7 +24,9 @@ test('action sequence', () => {
         actions.buzz('BOBA', 'katie'),
         actions.buzz('BOBA', 'dan'),
         actions.addPoints('BOBA', 'pass', 'dan', 3)
-    ].forEach(a => store.dispatch(a));
+    ];
+    
+    actionSequence.forEach(a => store.dispatch(a));
 
     const expected = {
         BOBA: {
@@ -38,7 +41,7 @@ test('action sequence', () => {
                 { text: 'rolls over your neighbors dog' }
             ],
             showing: 2,
-            lastAction: actions.addPoints('BOBA', 'pass', 'dan', 3)
+            lastAction: redact(actionSequence[actionSequence.length - 1])
         }
     };
 
