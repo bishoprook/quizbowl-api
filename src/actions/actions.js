@@ -1,6 +1,7 @@
 export const actionTypes = {
     CREATE: 'create',
     ADD_QUESTION: 'addQuestion',
+    REMOVE_QUESTION: 'removeQuestion',
     SHOW_QUESTION: 'showQuestion',
     ADD_PLAYER: 'addPlayer',
     REMOVE_PLAYER: 'removePlayer',
@@ -13,6 +14,7 @@ export const actionTypes = {
 
 export const needsRoomPermission = new Set([
     actionTypes.ADD_QUESTION,
+    actionTypes.REMOVE_QUESTION,
     actionTypes.SHOW_QUESTION,
     actionTypes.CLEAR_BUZZER,
     actionTypes.ADD_POINTS,
@@ -29,12 +31,16 @@ export function create(room, passcode) {
     return { type: actionTypes.CREATE, room, passcode };
 };
 
-export function addQuestion(room, passcode, text, index = undefined) {
-    return { type: actionTypes.ADD_QUESTION, room, passcode, text, index };
+export function addQuestion(room, passcode, subject, pages, index = undefined) {
+    return { type: actionTypes.ADD_QUESTION, room, passcode, subject, pages, index };
 };
 
-export function showQuestion(room, passcode, index) {
-    return { type: actionTypes.SHOW_QUESTION, room, passcode, index };
+export function removeQuestion(room, passcode, index) {
+    return { type: actionTypes.REMOVE_QUESTION, room, passcode, index };
+};
+
+export function showQuestion(room, passcode, index, page) {
+    return { type: actionTypes.SHOW_QUESTION, room, passcode, index, page };
 };
 
 export function addPlayer(room, name) {

@@ -14,12 +14,19 @@ test('action sequence', () => {
 
     const actionSequence = [
         actions.create('BOBA', 'pass'),
-        actions.addQuestion('BOBA', 'pass', 'what rolls down stairs'),
-        actions.showQuestion('BOBA', 'pass', 1),
-        actions.addQuestion('BOBA', 'pass', 'rolls over your neighbors dog'),
+        actions.addQuestion('BOBA', 'pass', 'Ren & Stimpy', [
+            'what rolls down stairs',
+            'alone or in pairs',
+            'rolls over your neighbor`s dog'
+        ]),
+        actions.showQuestion('BOBA', 'pass', 0, 0),
         actions.addPlayer('BOBA', 'katie'),
-        actions.addQuestion('BOBA', 'pass', 'alone or in pairs', 1),
-        actions.showQuestion('BOBA', 'pass', 2),
+        actions.addQuestion('BOBA', 'pass', 'Brooklyn 99', [
+            'I`ve only had Arlo for a day and a half',
+            'but if anything happened to him',
+            'I would kill everyone in this room and then myself'
+        ]),
+        actions.showQuestion('BOBA', 'pass', 1, null),
         actions.addPlayer('BOBA', 'dan'),
         actions.buzz('BOBA', 'katie'),
         actions.buzz('BOBA', 'dan'),
@@ -36,11 +43,18 @@ test('action sequence', () => {
             buzzed: 'katie',
             scores: { katie: 0, dan: 3 },
             questions: [
-                { text: 'what rolls down stairs' },
-                { text: 'alone or in pairs' },
-                { text: 'rolls over your neighbors dog' }
+                { subject: 'Ren & Stimpy', pages: [
+                    'what rolls down stairs',
+                    'alone or in pairs',
+                    'rolls over your neighbor`s dog'
+                ]},
+                { subject: 'Brooklyn 99', pages: [
+                    'I`ve only had Arlo for a day and a half',
+                    'but if anything happened to him',
+                    'I would kill everyone in this room and then myself'
+                ]}
             ],
-            showing: 2,
+            showing: [1, null],
             lastAction: redact(actionSequence[actionSequence.length - 1])
         }
     };
