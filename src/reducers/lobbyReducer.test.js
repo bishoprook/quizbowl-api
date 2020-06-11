@@ -2,7 +2,8 @@ import reducer from './lobbyReducer.js';
 import * as actions from '../actions/actions.js';
 
 test('create adds a new empty room', () => {
-    expect(reducer({}, actions.create('IXVY', 'password'))).toStrictEqual({
+    const action = actions.create('IXVY', 'password');
+    expect(reducer({}, action)).toStrictEqual({
         IXVY: {
             id: 'IXVY',
             passcode: 'password',
@@ -10,7 +11,8 @@ test('create adds a new empty room', () => {
             buzzed: null,
             scores: {},
             questions: [],
-            showing: null
+            showing: null,
+            lastAction: action
         }
     });
 });
@@ -42,9 +44,41 @@ test('addPlayer on a real room adds player', () => {
             buzzed: null,
             scores: { celestine: 0 },
             questions: [],
-            showing: null
+            showing: null,
+            lastAction: action
         }
     };
 
     expect(reducer(state, action)).toStrictEqual(expected);
+});
+
+test('lastAction is specific to a given room', () => {
+    const state = {
+        BOBA: {
+            id: 'BOBA',
+            passcode: 'password',
+            players: [],
+            buzzed: null,
+            scores: {},
+            questions: [],
+            showing: null,
+            lastAction: null
+        },
+        FETT: {
+            id: 'FETT',
+            passcode: 'password',
+            players: [],
+            buzzed: null,
+            scores: {},
+            questions: [],
+            showing: null,
+            lastAction: null
+        }
+    };
+
+    const action = actions.addPlayer('BOBA', 'celestine');
+    const reduced = reducer(state, action);
+
+    expect(reduced.BOBA.lastAction).toStrictEqual(action);
+    expect(reduced.FETT.lastAction).toBeNull();
 });

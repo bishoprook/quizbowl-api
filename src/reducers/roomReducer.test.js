@@ -11,7 +11,8 @@ test('add player to empty room', () => {
         buzzed: null,
         scores: { celestine: 0 },
         questions: [],
-        showing: null
+        showing: null,
+        lastAction: action
     };
     expect(reducer(state, action)).toStrictEqual(expected);
 });

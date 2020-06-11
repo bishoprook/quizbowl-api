@@ -37,7 +37,8 @@ test('action sequence', () => {
                 { text: 'alone or in pairs' },
                 { text: 'rolls over your neighbors dog' }
             ],
-            showing: 2
+            showing: 2,
+            lastAction: actions.addPoints('BOBA', 'pass', 'dan', 3)
         }
     };
 

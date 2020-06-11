@@ -3,6 +3,7 @@ import buzzedReducer from './buzzedReducer.js';
 import scoresReducer from './scoresReducer.js';
 import questionsReducer from './questionsReducer.js';
 import showingReducer from './showingReducer.js';
+import lastActionReducer from './lastActionReducer.js';
 import { needsRoomPermission } from '../actions/actions.js';
 
 const roomReducer = (state, action) => {
@@ -21,7 +22,8 @@ const roomReducer = (state, action) => {
         buzzed: buzzedReducer(state.buzzed, action, state.players),
         scores: scoresReducer(state.scores, action),
         questions: questionsReducer(state.questions, action),
-        showing: showingReducer(state.showing, action, state.questions)
+        showing: showingReducer(state.showing, action, state.questions),
+        lastAction: lastActionReducer(state.lastAction, action)
     };
 };
 
