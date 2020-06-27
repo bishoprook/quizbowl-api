@@ -9,10 +9,10 @@ test('create adds a new empty room', () => {
             id: 'IXVY',
             passcode: 'password',
             players: [],
-            buzzed: null,
+            buzzed: [],
             scores: {},
             questions: [],
-            showing: null,
+            showing: [null, false],
             lastAction: redact(action)
         }
     });
@@ -28,10 +28,10 @@ test('addPlayer on a real room adds player', () => {
             id: 'MANA',
             passcode: 'password',
             players: [],
-            buzzed: null,
+            buzzed: [],
             scores: {},
             questions: [],
-            showing: null
+            showing: [null, false]
         }
     }
 
@@ -42,10 +42,10 @@ test('addPlayer on a real room adds player', () => {
             id: 'MANA',
             passcode: 'password',
             players: ['celestine'],
-            buzzed: null,
+            buzzed: [],
             scores: { celestine: 0 },
             questions: [],
-            showing: null,
+            showing: [null, false],
             lastAction: action
         }
     };
@@ -59,20 +59,20 @@ test('lastAction is specific to a given room', () => {
             id: 'BOBA',
             passcode: 'password',
             players: [],
-            buzzed: null,
+            buzzed: [],
             scores: {},
             questions: [],
-            showing: null,
+            showing: [null, false],
             lastAction: null
         },
         FETT: {
             id: 'FETT',
             passcode: 'password',
             players: [],
-            buzzed: null,
+            buzzed: [],
             scores: {},
             questions: [],
-            showing: null,
+            showing: [null, false],
             lastAction: null
         }
     };

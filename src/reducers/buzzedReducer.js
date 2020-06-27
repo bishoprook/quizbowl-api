@@ -1,13 +1,15 @@
 import { actionTypes } from '../actions/actions.js';
 
-const buzzedReducer = (state = null, { type, name }, players = []) => {
+const buzzedReducer = (state = [], { type, name }, players = []) => {
     switch (type) {
         case actionTypes.BUZZ:
-            return state == null && players.includes(name) ? name : state;
+            return !state.includes(name) && players.includes(name) ? [...state, name] : state;
+        case actionTypes.NEXT_BUZZER:
+            return [];
         case actionTypes.CLEAR_BUZZER:
-            return null;
+            return [];
         case actionTypes.REMOVE_PLAYER:
-            return state === name ? null : state;
+            return state.filter(n => n !== name);
         default:
             return state;
     }

@@ -1,19 +1,19 @@
 import { actionTypes } from '../actions/actions.js';
 
-const showingReducer = (state = null, { type, index, page }, questions = []) => {
+const showingReducer = (state = [null, false], { type, index, reveal = false }, questions = []) => {
     switch (type) {
         case actionTypes.SHOW_QUESTION:
-            // Always reset page to null when index is set to null
+            // Always reset reveal to false when index is set to null
             if (index == null) {
-                return [null, null];
+                return [null, false];
             }
 
             // Bounds checks
-            if (index < 0 || index > questions.length || page < 0 || page > questions[index].pages.length) {
+            if (index < 0 || index > questions.length) {
                 return state;
             }
 
-            return [index, page];
+            return [index, reveal];
             
         default:
             return state;

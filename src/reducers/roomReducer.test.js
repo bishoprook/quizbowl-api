@@ -8,10 +8,10 @@ test('add player to empty room', () => {
         id: 'BAZZ',
         passcode: 'pass',
         players: ['celestine'],
-        buzzed: null,
+        buzzed: [],
         scores: { celestine: 0 },
         questions: [],
-        showing: null,
+        showing: [null, false],
         lastAction: action
     };
     expect(reducer(state, action)).toStrictEqual(expected);

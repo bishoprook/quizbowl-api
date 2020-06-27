@@ -1,22 +1,27 @@
 import reducer from './buzzedReducer.js';
 import { buzz, clearBuzzer, removePlayer } from '../actions/actions.js';
+import { text } from 'express';
 
 test('can buzz in from normal state', () => {
-    expect(reducer(null, buzz(null, 'dan'), ['dan', 'wes'])).toStrictEqual('dan');
+    expect(reducer([], buzz(null, 'dan'), ['dan', 'wes'])).toStrictEqual(['dan']);
+});
+
+text('can buzz in after someone else', () => {
+    expect(reducer(['dan'], buzz(null, 'wes'), ['dan', 'wes'])).toStrictEqual(['dan', 'wes']);
 });
 
 test('cannot buzz if already buzzed', () => {
-    expect(reducer('dan', buzz(null, 'wes'), ['dan', 'wes'])).toStrictEqual('dan');
+    expect(reducer(['wes', 'dan'], buzz(null, 'dan'), ['dan', 'wes'])).toStrictEqual(['wes', 'dan']);
 });
 
 test('cannot buzz if not in players', () => {
-    expect(reducer(null, buzz(null, 'celestine'), ['dan', 'wes'])).toStrictEqual(null);
+    expect(reducer([], buzz(null, 'celestine'), ['dan', 'wes'])).toStrictEqual([]);
 })
 
 test('can clear buzzer', () => {
-    expect(reducer('dan', clearBuzzer(null), ['dan', 'wes'])).toStrictEqual(null);
+    expect(reducer(['dan'], clearBuzzer(null), ['dan', 'wes'])).toStrictEqual([]);
 });
 
 test('removing buzzed player removes buzz', () => {
-    expect(reducer('katie', removePlayer(null, null, 'katie'))).toStrictEqual(null);
+    expect(reducer(['dan', 'bethany'], removePlayer(null, null, 'dan'))).toStrictEqual(['bethany']);
 });
