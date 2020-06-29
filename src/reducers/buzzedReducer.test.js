@@ -1,27 +1,58 @@
 import reducer from './buzzedReducer.js';
-import { buzz, clearBuzzer, removePlayer } from '../actions/actions.js';
-import { text } from 'express';
+import { buzz, nextBuzzer, clearBuzzer, removePlayer } from '../actions/actions.js';
 
 test('can buzz in from normal state', () => {
-    expect(reducer([], buzz(null, 'dan'), ['dan', 'wes'])).toStrictEqual(['dan']);
+    const state = [];
+    const action = buzz(null, 'dan');
+    const players = { dan: 'redTeam' };
+    const expected = [['redTeam', 'dan']];
+    expect(reducer(state, action, players)).toStrictEqual(expected);
 });
 
-text('can buzz in after someone else', () => {
-    expect(reducer(['dan'], buzz(null, 'wes'), ['dan', 'wes'])).toStrictEqual(['dan', 'wes']);
+test('can buzz in after someone else', () => {
+    const state = [['redTeam', 'dan']];
+    const action = buzz(null, 'wes');
+    const players = { dan: 'redTeam', wes: 'goldTeam' };
+    const expected = [['redTeam', 'dan'], ['goldTeam', 'wes']];
+    expect(reducer(state, action, players)).toStrictEqual(expected);
 });
 
-test('cannot buzz if already buzzed', () => {
-    expect(reducer(['wes', 'dan'], buzz(null, 'dan'), ['dan', 'wes'])).toStrictEqual(['wes', 'dan']);
+test('cannot buzz if teammate already buzzed', () => {
+    const state = [['redTeam', 'dan']];
+    const action = buzz(null, 'thandor');
+    const players = { dan: 'redTeam', wes: 'goldTeam', thandor: 'redTeam' };
+    const expected = state;
+    expect(reducer(state, action, players)).toStrictEqual(expected);
 });
 
 test('cannot buzz if not in players', () => {
-    expect(reducer([], buzz(null, 'celestine'), ['dan', 'wes'])).toStrictEqual([]);
-})
+    const state = [['redTeam', 'dan']];
+    const action = buzz(null, 'thandor');
+    const players = { dan: 'redTeam', wes: 'goldTeam' };
+    const expected = state;
+    expect(reducer(state, action, players)).toStrictEqual(expected);
+});
+
+test('can go to next buzzer', () => {
+    const state = [['redTeam', 'dan'], ['goldTeam', 'wes']];
+    const action = nextBuzzer(null, null);
+    const players = { dan: 'redTeam', wes: 'goldTeam' };
+    const expected = [['goldTeam', 'wes']];
+    expect(reducer(state, action, players)).toStrictEqual(expected);
+});
 
 test('can clear buzzer', () => {
-    expect(reducer(['dan'], clearBuzzer(null), ['dan', 'wes'])).toStrictEqual([]);
+    const state = [['redTeam', 'dan']];
+    const action = clearBuzzer(null, null);
+    const players = { dan: 'redTeam', wes: 'goldTeam' };
+    const expected = [];
+    expect(reducer(state, action, players)).toStrictEqual(expected);
 });
 
 test('removing buzzed player removes buzz', () => {
-    expect(reducer(['dan', 'bethany'], removePlayer(null, null, 'dan'))).toStrictEqual(['bethany']);
+    const state = [['redTeam', 'dan'], ['goldTeam', 'wes']];
+    const action = removePlayer(null, null, 'dan');
+    const players = { dan: 'redTeam', wes: 'goldTeam' };
+    const expected = [['goldTeam', 'wes']];
+    expect(reducer(state, action, players)).toStrictEqual(expected);
 });

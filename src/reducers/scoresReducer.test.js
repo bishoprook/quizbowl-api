@@ -1,50 +1,42 @@
 import reducer from './scoresReducer.js';
-import { addPlayer, removePlayer, addPoints, removePoints, setScore } from '../actions/actions.js';
+import { addPlayer, addPoints, removePoints, setScore } from '../actions/actions.js';
 
-test('tracks newly added players', () => {
-    expect(reducer({}, addPlayer(null, 'dan'))).toStrictEqual({ dan: 0 });
+test('tracks newly added teams', () => {
+    expect(reducer({}, addPlayer(null, 'dan', 'redTeam'))).toStrictEqual({ redTeam: 0 });
 });
 
-test('does not overwrite score for re-added player', () => {
-    expect(reducer({ dan: 10 }, addPlayer(null, 'dan'))).toStrictEqual({ dan: 10 });
+test('does not overwrite score for re-added team', () => {
+    expect(reducer({ redTeam: 10 }, addPlayer(null, 'dan', 'redTeam'))).toStrictEqual({ redTeam: 10 });
 });
 
-test('adds 1 point to player by default', () => {
-    expect(reducer({ dan: 3, wes: 5 }, addPoints(null, null, 'wes'))).toStrictEqual({ dan: 3, wes: 6 });
+test('adds 1 point to team by default', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, addPoints(null, null, 'goldTeam'))).toStrictEqual({ redTeam: 3, goldTeam: 6 });
 });
 
-test('adds 5 points to player', () => {
-    expect(reducer({ dan: 3, wes: 5 }, addPoints(null, null, 'wes', 5))).toStrictEqual({ dan: 3, wes: 10 });
+test('adds 5 points to team', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, addPoints(null, null, 'goldTeam', 5))).toStrictEqual({ redTeam: 3, goldTeam: 10 });
 });
 
-test('does not add points for nonexistent player', () => {
-    expect(reducer({ dan: 3, wes: 5 }, addPoints(null, null, 'thandor', 10))).toStrictEqual({ dan: 3, wes: 5 });
+test('does not add points for nonexistent team', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, addPoints(null, null, 'blueTeam', 10))).toStrictEqual({ redTeam: 3, goldTeam: 5 });
 });
 
 test('removes 1 point by default', () => {
-    expect(reducer({ dan: 3, wes: 5 }, removePoints(null, null, 'wes'))).toStrictEqual({ dan: 3, wes: 4 });
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, removePoints(null, null, 'goldTeam'))).toStrictEqual({ redTeam: 3, goldTeam: 4 });
 });
 
-test('removes 5 points from player', () => {
-    expect(reducer({ dan: 3, wes: 10 }, removePoints(null, null, 'wes', 5))).toStrictEqual({ dan: 3, wes: 5 });
+test('removes 5 points from team', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 10 }, removePoints(null, null, 'goldTeam', 5))).toStrictEqual({ redTeam: 3, goldTeam: 5 });
 });
 
-test('does not remove points for nonexistent player', () => {
-    expect(reducer({ dan: 3, wes: 5 }, removePoints(null, null, 'thandor', 10))).toStrictEqual({ dan: 3, wes: 5 });
+test('does not remove points for nonexistent team', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, removePoints(null, null, 'blueTeam', 10))).toStrictEqual({ redTeam: 3, goldTeam: 5 });
 });
 
-test('sets player score', () => {
-    expect(reducer({ dan: 3, wes: 5 }, setScore(null, null, 'dan', 7))).toStrictEqual({ dan: 7, wes: 5 });
+test('sets team score', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, setScore(null, null, 'redTeam', 7))).toStrictEqual({ redTeam: 7, goldTeam: 5 });
 });
 
-test('does not set score for nonexistent player', () => {
-    expect(reducer({ dan: 3, wes: 5 }, setScore(null, null, 'thandor', 3))).toStrictEqual({ dan: 3, wes: 5 });
-});
-
-test('removes existing player from scores', () => {
-    expect(reducer({ dan: 3, wes: 5 }, removePlayer(null, null, 'dan'))).toStrictEqual({ wes: 5 });
-});
-
-test('remove is a no op if non existent', () => {
-    expect(reducer({ dan: 5 }, removePlayer(null, null, 'wes'))).toStrictEqual({ dan: 5 });
+test('does not set score for nonexistent team', () => {
+    expect(reducer({ redTeam: 3, goldTeam: 5 }, setScore(null, null, 'blueTeam', 3))).toStrictEqual({ redTeam: 3, goldTeam: 5 });
 });

@@ -8,7 +8,8 @@ test('create adds a new empty room', () => {
         IXVY: {
             id: 'IXVY',
             passcode: 'password',
-            players: [],
+            players: {},
+            teams: {},
             buzzed: [],
             scores: {},
             questions: [],
@@ -27,7 +28,8 @@ test('addPlayer on a real room adds player', () => {
         MANA: {
             id: 'MANA',
             passcode: 'password',
-            players: [],
+            players: {},
+            teams: {},
             buzzed: [],
             scores: {},
             questions: [],
@@ -35,15 +37,16 @@ test('addPlayer on a real room adds player', () => {
         }
     }
 
-    const action = actions.addPlayer('MANA', 'celestine');
+    const action = actions.addPlayer('MANA', 'celestine', 'redTeam');
 
     const expected = {
         MANA: {
             id: 'MANA',
             passcode: 'password',
-            players: ['celestine'],
+            players: { celestine: 'redTeam' },
+            teams: { redTeam: ['celestine'] },
             buzzed: [],
-            scores: { celestine: 0 },
+            scores: { redTeam: 0 },
             questions: [],
             showing: [null, false],
             lastAction: action
@@ -58,7 +61,8 @@ test('lastAction is specific to a given room', () => {
         BOBA: {
             id: 'BOBA',
             passcode: 'password',
-            players: [],
+            players: {},
+            teams: {},
             buzzed: [],
             scores: {},
             questions: [],
@@ -68,7 +72,8 @@ test('lastAction is specific to a given room', () => {
         FETT: {
             id: 'FETT',
             passcode: 'password',
-            players: [],
+            players: {},
+            teams: {},
             buzzed: [],
             scores: {},
             questions: [],
@@ -77,7 +82,7 @@ test('lastAction is specific to a given room', () => {
         }
     };
 
-    const action = actions.addPlayer('BOBA', 'celestine');
+    const action = actions.addPlayer('BOBA', 'celestine', 'redTeam');
     const reduced = reducer(state, action);
 
     expect(reduced.BOBA.lastAction).toStrictEqual(redact(action));

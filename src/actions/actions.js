@@ -45,8 +45,8 @@ export function showQuestion(room, passcode, index, reveal) {
     return { type: actionTypes.SHOW_QUESTION, room, passcode, index, reveal };
 };
 
-export function addPlayer(room, name) {
-    return { type: actionTypes.ADD_PLAYER, room, name };
+export function addPlayer(room, name, teamName) {
+    return { type: actionTypes.ADD_PLAYER, room, name, teamName };
 };
 
 export function removePlayer(room, passcode, name) {
@@ -65,14 +65,14 @@ export function clearBuzzer(room, passcode) {
     return { type: actionTypes.CLEAR_BUZZER, room, passcode };
 };
 
-export function addPoints(room, passcode, name, amount = 1) {
-    return { type: actionTypes.ADD_POINTS, room, passcode, name, amount };
+export function addPoints(room, passcode, teamName, amount = 1) {
+    return { type: actionTypes.ADD_POINTS, room, passcode, teamName, amount };
 };
 
-export function removePoints(room, passcode, name, amount = 1) {
-    return { type: actionTypes.REMOVE_POINTS, room, passcode, name, amount };
+export function removePoints(room, passcode, teamName, amount = 1) {
+    return { type: actionTypes.REMOVE_POINTS, room, passcode, teamName, amount };
 };
 
-export function setScore(room, passcode, name, score) {
-    return { type: actionTypes.SET_SCORE, room, passcode, name, score };
+export function setScore(room, passcode, teamName, score) {
+    return { type: actionTypes.SET_SCORE, room, passcode, teamName, score };
 };

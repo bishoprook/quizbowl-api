@@ -7,3 +7,11 @@ test('filters matching values', () => {
 
     expect(filterValues(input, predicate)).toStrictEqual(expected);
 });
+
+test('filters based on key', () => {
+    const input = { a: 1, b: 2, c: 3 };
+    const predicate = (_, k) => k !== 'b';
+    const expected = { a: 1, c: 3 };
+
+    expect(filterValues(input, predicate)).toStrictEqual(expected);
+});

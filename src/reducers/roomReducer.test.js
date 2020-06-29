@@ -3,13 +3,14 @@ import * as actions from '../actions/actions.js';
 
 test('add player to empty room', () => {
     const state = { id: 'BAZZ', passcode: 'pass' };
-    const action = actions.addPlayer('BAZZ', 'celestine');
+    const action = actions.addPlayer('BAZZ', 'celestine', 'redTeam');
     const expected = {
         id: 'BAZZ',
         passcode: 'pass',
-        players: ['celestine'],
+        players: { celestine: 'redTeam' },
+        teams: { redTeam: ['celestine'] },
         buzzed: [],
-        scores: { celestine: 0 },
+        scores: { redTeam: 0 },
         questions: [],
         showing: [null, false],
         lastAction: action
