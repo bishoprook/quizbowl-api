@@ -12,6 +12,11 @@ const realtime = ({ server, store }) => {
         socket.room = req.url.slice(1);
         console.log('Someone listening for ', socket.room);
         socket.on('message', payload => {
+            if (payload === '__ping__') {
+                socket.send('__pong__');
+                return;
+            }
+
             const action = JSON.parse(payload);
             console.log('Got action: ', action);
             try {
